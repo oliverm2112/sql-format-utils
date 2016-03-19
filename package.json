@@ -1,10 +1,10 @@
 {
 	"name": "sql-format-utils",
-	"version": "1.0.7",
+	"version": "1.0.9",
 	"description": "A Node.js module to manipulate strings and dates for use with SQL database interactions.",
 	"main": "index.js",
 	"scripts": {
-		"test": "app.js"
+		"test": "test/test.js"
 	},
 	"dependencies": {
 		"dateformat": "^1.0.12"
