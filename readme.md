@@ -38,3 +38,8 @@ var dbUtils = require('sql-format-utils');
 	console.log(dbUtils.escapeSingleQuotes("She's got her mother's eyes."));
 	// "She\'s got her mother\'s eyes."
 	```
+
+	```JavaScript
+	console.log(dbUtils.escapeSingleQuotes("She's got her mother's eyes.", "'"));
+	// "She''s got her mother''s eyes."
+	```
