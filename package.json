@@ -21,7 +21,6 @@
 	],
 	"author": "Oliver Merk <npm@olivermerk.com> (http://merkconsulting.com)",
 	"license": "Apache-2.0",
-	"readme": "readme.md",
 	"bugs": {
 		"url": "https://github.com/oliverm2112/sql-format-utils/issues"
 	},
