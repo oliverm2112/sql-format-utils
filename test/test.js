@@ -1,32 +1,39 @@
+var assert = require('assert');
 var dbUtils = require('../index');
 
-console.log("Expect '1','2','3','4' from array");
-var arr = [1, 2, 3, 4];
-console.log(dbUtils.toSQLList(arr));
-console.log('-------');
+describe('Database Format Utilities', function () {
 
-console.log("Expect '1','2','3','4' from comma-delimited string");
-var list = '1,2,3,4';
-console.log(dbUtils.toSQLList(list));
-console.log('-------');
+	describe('#toSQLList()', function () {
+		it('should return quoted list from array', function () {
+			assert.equal(dbUtils.toSQLList([1,2,3,4]), "'1','2','3','4'");
+		});
+		it('should return quoted list from comma list', function () {
+			assert.equal(dbUtils.toSQLList('1, 2, 3, 4'), "'1','2','3','4'");
+		});
+		it('should return trimmed quoted list from sloppy comma list', function () {
+			assert.equal(dbUtils.toSQLList('1,   2,     3,  4'), "'1','2','3','4'");
+		});
+	});
 
-console.log("Expect undefined from object");
-var obj = {test : 123};
-console.log(dbUtils.toSQLList(obj));
-console.log('-------');
+	describe('#formatDateForSQL()', function () {
+		it('should return submitted date formatted for SQL', function () {
+			var date = new Date();
+			date.setYear(2020);
+			date.setMonth(0);
+			date.setDate(16);
+			date.setHours(17);
+			date.setMinutes(45);
+			date.setSeconds(12);
+			assert.equal(dbUtils.formatDateForSQL(date), '2020-01-16 17:45:12');
+		});
+	});
 
-console.log("Expect undefined from null");
-console.log(dbUtils.toSQLList());
-console.log('-------');
-
-console.log("Expect current dtm, e.g. 2016-03-19 08:45:27");
-console.log(dbUtils.formatDateForSQL(new Date()));
-console.log('-------');
-
-console.log("Expect \"She\\'s got her mother\\'s eyes.\"");
-console.log(dbUtils.escapeSingleQuotes("She's got her mother's eyes."));
-console.log('-------');
-
-console.log("Expect \"She''s got her mother''s eyes.\"");
-console.log(dbUtils.escapeSingleQuotes("She's got her mother's eyes.", "'"));
-console.log('-------');
+	describe('#escapeSingleQuotes()', function () {
+		it('should return string with single quotes escaped with default character', function () {
+			assert.equal(dbUtils.escapeSingleQuotes("She's got her mother's eyes."), "She\\'s got her mother\\'s eyes.");
+		});
+		it('should return string with single quotes escaped with custom character', function () {
+			assert.equal(dbUtils.escapeSingleQuotes("She's got her mother's eyes.", "'"), "She''s got her mother''s eyes.");
+		});
+	});
+});

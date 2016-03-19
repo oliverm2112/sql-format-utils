@@ -1,10 +1,10 @@
 {
 	"name": "sql-format-utils",
-	"version": "1.1.2",
+	"version": "1.2.0",
 	"description": "A Node.js module to manipulate strings and dates for use with SQL database interactions.",
 	"main": "index.js",
 	"scripts": {
-		"test": "test/test.js"
+		"test": "mocha test/test.js"
 	},
 	"dependencies": {
 		"dateformat": "^1.0.12"
@@ -24,5 +24,8 @@
 	"bugs": {
 		"url": "https://github.com/oliverm2112/sql-format-utils/issues"
 	},
-	"homepage": "https://github.com/oliverm2112/sql-format-utils#readme"
+	"homepage": "https://github.com/oliverm2112/sql-format-utils#readme",
+	"devDependencies": {
+		"mocha": "^2.4.5"
+	}
 }

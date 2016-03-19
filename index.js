@@ -6,6 +6,9 @@ exports.toSQLList = function (obj) {
 	}
 	if ((typeof obj) === 'string') {
 		var listArr = obj.split(',');
+		listArr.forEach(function(item, i) {
+			listArr[i] = listArr[i].trim();
+		});
 		return '\'' + listArr.join('\',\'') + '\'';
 	}
 };
