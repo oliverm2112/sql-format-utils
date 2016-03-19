@@ -1,18 +1,20 @@
 var dateFormat = require('dateformat');
 
-exports.arrayToSQLList = function (arr) {
-	return '\'' + arr.join('\',\'') + '\'';
-};
-
-exports.listToSQLList = function (list) {
-	var listArr = list.split(',');
-	return exports.arrayToSQLList(listArr);
+exports.toSQLList = function (obj) {
+	if (obj instanceof Array) {
+		return '\'' + obj.join('\',\'') + '\'';
+	}
+	if ((typeof obj) === 'string') {
+		var listArr = obj.split(',');
+		return '\'' + listArr.join('\',\'') + '\'';
+	}
 };
 
 exports.formatDateForSQL = function (date) {
 	return dateFormat(date, 'yyyy-mm-dd HH:MM:ss');
 };
 
-exports.escapeSingleQuotes = function (string) {
-	return string ? string.replace(/'/g, "\'") : null;
+exports.escapeSingleQuotes = function (string, escapeChar) {
+	escapeChar = escapeChar || '\\';
+	return string ? string.replace(/'/g, escapeChar + "'") : null;
 };
